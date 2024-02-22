@@ -5,11 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-/*esse programa deve está em um pacote aplicacao*/
-public class Program {
-//PROGRAMA MUITO RUIM
+public class Program2 {
+	//PROGRAMA RUIM
+
 	public static void main(String[] args) throws ParseException {
-		
 		
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -28,34 +27,28 @@ public class Program {
 			System.out.println("Error! data de check-out deve ser posterio que a data check-in");
 			
 		}else {
-			Reservation reservation = new Reservation(number, checkin, checkout);
+			Reservation2 reservation = new Reservation2(number, checkin, checkout);
 			System.out.println("Reservation: "+ reservation);
 			
 			System.out.println();
 			System.out.println("Entre com as data para atualizar a reserva");
 			System.out.print("check-in date (dd/MM/yyyy): ");
 			checkin = sdf.parse(sc.next());
-			
 			System.out.print("check-out date (dd/MM/yyyy): ");
 			checkout = sdf.parse(sc.next());
 			
-			Date now = new Date();
-			//metodo before testa se uma data é antes da outra
-			if(checkin.before(now) || checkout.before(now)) {
-				System.out.println("Error na atualização as datas reservas devem ser datas futuras");
-				
-			}else if(!checkout.after(checkin)) {
-				System.out.println("Error! data de check-out deve ser posterio que a data check-in");
-			}else {
-				reservation.updateDate(checkin, checkout);
-				System.out.println("Resrvation: "+reservation);
-			}
+			String error = reservation.updateDate(checkin, checkout);
 			
+			if(error != null) {
+				System.out.println("Error! revervation: "+error);
+			}else {
+				System.out.println("Reservation: "+reservation);
+			}
 		}
+			
+		
 		sc.close();
-		
-		
-
-	}
-
 }
+	
+}
+
